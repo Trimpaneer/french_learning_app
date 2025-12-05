@@ -14,7 +14,7 @@
         "NODE_ENV": "production"
     },
     "functions": {
-        "project-export/backend/api/**/*.ts": {
+        "project-export/backend/api/index.ts": {
             "memory": 1024,
             "maxDuration": 10
         }
