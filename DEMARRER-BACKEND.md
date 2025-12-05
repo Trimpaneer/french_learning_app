@@ -67,11 +67,11 @@ CREATE DATABASE my_project_db;
 ```
 
 ### Le serveur démarre mais ne répond pas
-→ Vérifiez les logs dans le terminal pour voir les erreurs exactes.
+→ Vérifier les logs dans le terminal pour voir les erreurs exactes.
 
 ## ✅ Indicateurs de succès
 
-Quand le backend fonctionne correctement, vous devriez voir :
+Quand le backend fonctionne correctement:
 ```
 ✅ Connected to PostgreSQL database
 ✅ Database schema initialized
