@@ -23,7 +23,7 @@ app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) return callback(null, true);
-    
+
     if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
@@ -62,5 +62,27 @@ const startServer = async () => {
   }
 };
 
-startServer();
+export default app;
+
+if (process.env.NODE_ENV !== 'production') {
+  startServer();
+} else {
+  // In production (Vercel), we might not want to start the server explicitly 
+  // if we are just exporting the app for serverless, BUT
+  // if this is run as a standalone node app in production, we DO want it.
+  // For Vercel Serverless, the entry point will be api/index.ts importing this.
+  // So we can leave startServer() here? 
+  // Actually, Vercel imports the file. If we run startServer(), it might try to listen on a port.
+  // Better to check if we are being required or run directly.
+  // But ES modules make that hard.
+  // Let's just export app and keep startServer() for now, 
+  // assuming Vercel won't run this file directly but import it?
+  // Wait, if I import it in api/index.ts, the side effects (startServer) will run.
+  // I should wrap startServer.
+}
+
+// Only start server if not running in Vercel (Vercel sets VERCEL=1)
+if (!process.env.VERCEL) {
+  startServer();
+}
 

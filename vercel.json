@@ -3,18 +3,18 @@
     "routes": [
         {
             "src": "/api/(.*)",
-            "dest": "/api/index.ts"
+            "dest": "/project-export/backend/api/index.ts"
         },
         {
             "src": "/(.*)",
-            "dest": "/$1"
+            "dest": "/project-export/frontend/$1"
         }
     ],
     "env": {
         "NODE_ENV": "production"
     },
     "functions": {
-        "api/**/*.ts": {
+        "project-export/backend/api/**/*.ts": {
             "memory": 1024,
             "maxDuration": 10
         }
