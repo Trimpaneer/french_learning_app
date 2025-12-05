@@ -1,0 +1,11 @@
+{
+    "name": "my-project-root",
+    "private": true,
+    "workspaces": [
+        "project-export/backend",
+        "project-export/frontend"
+    ],
+    "scripts": {
+        "install:all": "npm install"
+    }
+}
