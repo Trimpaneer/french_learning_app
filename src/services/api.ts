@@ -1,4 +1,8 @@
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+// Use relative path in production (Vercel), localhost in development
+const API_URL = import.meta.env.PROD
+  ? '/api'
+  : (import.meta.env.VITE_API_URL || 'http://localhost:3001/api');
+
 
 export interface LoginCredentials {
   email: string;
@@ -48,10 +52,10 @@ class ApiService {
       });
 
       if (!response.ok) {
-        const error = await response.json().catch(() => ({ 
-          error: response.status === 0 || response.status >= 500 
-            ? 'Server is not available. Please make sure the backend is running.' 
-            : 'An error occurred' 
+        const error = await response.json().catch(() => ({
+          error: response.status === 0 || response.status >= 500
+            ? 'Server is not available. Please make sure the backend is running.'
+            : 'An error occurred'
         }));
         throw new Error(error.error || `HTTP error! status: ${response.status}`);
       }

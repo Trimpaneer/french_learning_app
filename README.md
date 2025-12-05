@@ -1,73 +1,157 @@
-# React + TypeScript + Vite
+# 🇫🇷 French Learning App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Application d'apprentissage du français avec React, TypeScript, et PostgreSQL.
 
-Currently, two official plugins are available:
+## 🚀 Déploiement rapide sur Vercel
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Consultez [QUICK-START-VERCEL.md](./QUICK-START-VERCEL.md) pour déployer en 5 minutes !
 
-## React Compiler
+Pour un guide détaillé : [DEPLOIEMENT-VERCEL.md](./DEPLOIEMENT-VERCEL.md)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 💻 Développement local
 
-## Expanding the ESLint configuration
+### Prérequis
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Node.js 18+ 
+- PostgreSQL 12+
+- npm ou yarn
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+```powershell
+# Installer toutes les dépendances
+npm run install:all
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Créer la base de données
+# Voir CREER-BASE-DONNEES.md
+
+# Configurer les variables d'environnement
+cp server/.env.example server/.env
+# Éditer server/.env avec vos informations
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Démarrer l'application
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+**Option 1 : Script automatique**
+```powershell
+.\start-dev.ps1
 ```
+
+**Option 2 : Manuellement**
+```powershell
+# Terminal 1 - Backend
+cd server
+npm run dev
+
+# Terminal 2 - Frontend
+npm run dev
+```
+
+L'application sera disponible sur :
+- Frontend : http://localhost:5173
+- Backend : http://localhost:3001
+- API Health : http://localhost:3001/api/health
+
+## 📚 Documentation
+
+- [QUICK-START.md](./QUICK-START.md) - Démarrage rapide local
+- [CREER-BASE-DONNEES.md](./CREER-BASE-DONNEES.md) - Configuration PostgreSQL
+- [DEMARRER-BACKEND.md](./DEMARRER-BACKEND.md) - Démarrer le serveur
+- [DEPLOIEMENT-VERCEL.md](./DEPLOIEMENT-VERCEL.md) - Guide de déploiement complet
+- [QUICK-START-VERCEL.md](./QUICK-START-VERCEL.md) - Déploiement rapide
+
+## 🏗️ Architecture
+
+```
+my-project/
+├── src/                    # Frontend React
+│   ├── components/         # Composants React
+│   ├── pages/             # Pages de l'application
+│   ├── services/          # Services API
+│   └── contexts/          # Contextes React
+├── server/                # Backend Express
+│   └── src/
+│       ├── config/        # Configuration DB
+│       ├── models/        # Modèles de données
+│       ├── routes/        # Routes API
+│       └── middleware/    # Middleware auth
+├── api/                   # Vercel Serverless Functions
+└── public/               # Assets statiques
+```
+
+## 🔑 Fonctionnalités
+
+- ✅ Authentification JWT
+- ✅ Inscription / Connexion
+- ✅ Suivi de progression (tutoriels & exercices)
+- ✅ Base de données PostgreSQL
+- ✅ API RESTful
+- ✅ Interface responsive
+
+## 🛠️ Technologies
+
+**Frontend**
+- React 19
+- TypeScript
+- Vite
+- TailwindCSS
+- React Router
+
+**Backend**
+- Node.js
+- Express
+- PostgreSQL
+- JWT
+- bcryptjs
+
+**Déploiement**
+- Vercel (Frontend + API)
+- Vercel Postgres (Database)
+
+## 📝 API Endpoints
+
+### Authentication
+- `POST /api/auth/register` - Créer un compte
+- `POST /api/auth/login` - Se connecter
+- `GET /api/auth/me` - Obtenir l'utilisateur actuel
+
+### Completions
+- `POST /api/completions/tutorials/:id/complete` - Marquer un tutoriel comme terminé
+- `POST /api/completions/exercises/:id/complete` - Marquer un exercice comme terminé
+- `GET /api/completions/tutorials/:id/status` - Statut d'un tutoriel
+- `GET /api/completions/exercises/:id/status` - Statut d'un exercice
+- `GET /api/completions/stats` - Statistiques utilisateur
+
+## 🔐 Variables d'environnement
+
+### Production (Vercel)
+Configurées dans Vercel Dashboard :
+- `POSTGRES_URL` (auto-généré par Vercel Postgres)
+- `JWT_SECRET`
+- `JWT_EXPIRES_IN`
+- `FRONTEND_URL`
+
+### Développement local
+Voir `server/.env.example`
+
+## 🤝 Contribution
+
+1. Fork le projet
+2. Créer une branche (`git checkout -b feature/AmazingFeature`)
+3. Commit les changements (`git commit -m 'Add AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+## 📄 Licence
+
+MIT
+
+## 🆘 Support
+
+Pour toute question ou problème :
+- Consultez [TROUBLESHOOTING.md](./TROUBLESHOOTING.md)
+- Consultez [DEPANNAGE-CONNEXION.md](./DEPANNAGE-CONNEXION.md)
+
+---
+
+Fait avec ❤️ pour l'apprentissage du français
